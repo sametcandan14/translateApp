@@ -1,19 +1,26 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getLanguages } from "../redux/action";
+import Select from "react-select";
+
 const MainPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => {}, []);
+
+  const store = useSelector((store) => store);
+  useEffect(() => {
+    dispatch(getLanguages());
+  }, []);
   return (
     <>
       <h1>Translate +</h1>
       <div className="container">
         <div className="left">
-          <select name="" id=""></select>
+          <Select options={store.languages} />
           <textarea></textarea>
         </div>
         <button className="change-btn">Change</button>
         <div className="right">
-          <select name="" id=""></select>
+          <Select options={store.languages} />
           <textarea></textarea>
         </div>
       </div>
