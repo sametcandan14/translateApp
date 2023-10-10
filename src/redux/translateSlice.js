@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLanguages } from "./action";
+import { getLanguages, getAnswer } from "./action";
 
 const initialState = {
   languages: [],
+  answer: "",
   isLoading: true,
   isError: false,
 };
@@ -22,7 +23,30 @@ const translateSlice = createSlice({
     [getLanguages.rejected]: (state, action) => {
       state.isError = "Dilleri alırken bir hata oluştu";
     },
+
+    //çeviri isteklerini yönetme
+    [getAnswer.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getAnswer.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.answer = action.payload;
+    },
+    [getAnswer.rejected]: (state) => {
+      state.isLoading = false;
+      state.isError = "Çevirirken bir hata oluştu";
+    },
+  },
+
+  //normal bir aksiyon olduğu için reducer içinde tanımlanır.
+  reducers: {
+    clearAnswer: (state) => {
+      state.answer = "";
+    },
   },
 });
+
+export const { clearAnswer } = translateSlice.actions;
 
 export default translateSlice.reducer;

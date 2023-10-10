@@ -35,6 +35,11 @@ textarea {
   resize: none;
 }
 
+textarea:disabled {
+  background-color: aliceblue;
+  color: black;
+}
+
 .right,
 .left {
   width: 100%;
@@ -64,6 +69,6 @@ button:hover {
   width: 70px;
 }
 
-select {
-  width: 100%;
+.select {
+  color: black;
 }
